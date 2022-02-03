@@ -1,12 +1,12 @@
 {
     "ID": "2f4e384e-76ce-45c3-aea2-b16f5e5c328f",
-    "ActionKeyword": "hp",
-    "Name": "Hello World Python",
-    "Description": "Python Hello World example plugin",
-    "Author": "Flow Launcher",
+    "ActionKeyword": "obs",
+    "Name": "Obsidian Plugin Search",
+    "Description": "Search for Obsidian Plugins and quickly paste links",
+    "Author": "Johannes Theiner",
     "Version": "1.0.0",
     "Language": "python",
-    "Website": "https://github.com/Flow-Launcher/Flow.Launcher.Plugin.HelloWorldPython",
-    "IcoPath": "Images\\app.png",
+    "Website": "github.com/joethei/Flow-ObsidianPluginSearch",
+    "IcoPath": "icon.png",
     "ExecuteFileName": "main.py"
 }

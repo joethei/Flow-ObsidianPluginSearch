@@ -1,1 +1,1 @@
-flowlauncher
+git+https://github.com/garulf/flox@v0.8.5#egg=flox
