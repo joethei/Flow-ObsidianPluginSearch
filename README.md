@@ -1,4 +1,4 @@
-## Tag & Word Cloud
+## Flow Obsidian Plugin Search
 
 Plugin for [Flow Launcher](https://www.flowlauncher.com/)
 
