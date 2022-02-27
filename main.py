@@ -10,6 +10,7 @@ sys.path.append(os.path.join(parent_folder_path, 'plugin'))
 from flox import Flox
 import urllib.request
 import json
+import webbrowser
 
 ####
 # Copy to clipboard function (put) compatible with x64 from https://forums.autodesk.com/t5/maya-programming/ctypes-bug-cannot-copy-data-to-clipboard-via-python/td-p/9195866
@@ -72,8 +73,16 @@ def put(s):
 
 class ObsidianPlugins(Flox):
 
+    def paste(self, name, pluginId, repo):
+        self.show_msg("Copied to clipboard", "Help")
+        put(
+            "_" + name + "_ plugin (<obsidian://show-plugin?id=" + pluginId + "> | " + "<https://github.com/" + repo + ">)")
+
+    def open_in_browser(self, url):
+        webbrowser.open(url)
+
     def query(self, query):
-        #using my own api here, just because(the raw json from gh would also work)
+        # using my own api here, just because(the raw json from gh would also work)
         url = "https://api.obsidian.joethei.xyz/plugins"
         data = urllib.request.urlopen(url).read().decode()
         obj = json.loads(data)
@@ -84,17 +93,41 @@ class ObsidianPlugins(Flox):
                      , obj)
 
         for plugin in var:
-            self.add_item(title=plugin['name'], subtitle=plugin['description'], method=self.paste,
-                          parameters=[plugin['name'], plugin['id'], plugin['repo']])
+            self.add_item(title=plugin['name'],
+                          subtitle=plugin['description'],
+                          method=self.paste,
+                          parameters=[plugin['name'], plugin['id'], plugin['repo']],
+                          context=[plugin])
 
     def context_menu(self, data):
+        plugin = data[0]
         self.add_item(
-            title=data,
-            subtitle=data
+            title=plugin['name'],
+            subtitle=plugin['description'],
+            method=self.paste,
+            parameters=[plugin['name'], plugin['id'], plugin['repo']],
+            context=[plugin]
+        )
+        self.add_item(
+            title="GitHub Repository",
+            subtitle=plugin['repo'],
+            icon="github.png",
+            method=self.open_in_browser,
+            parameters=["https://github.com/" + plugin['repo']]
+        )
+        self.add_item(
+            title="Plugin ID",
+            subtitle=plugin['id'],
         )
 
-    def paste(self, name, pluginId, repo):
-        put("_" + name + "_(<obsidian://show-plugin?id=" + pluginId + ">|" + "<https://github.com/" + repo + ">)")
+        url = "https://api.obsidian.joethei.xyz/plugin/" + plugin['id'] + "/downloads"
+        data = urllib.request.urlopen(url).read().decode()
+        obj = json.loads(data)
+        if obj:
+            self.add_item(
+                title="Total Downloads",
+                subtitle=str(obj["downloads"])
+            )
 
 
 if __name__ == "__main__":
