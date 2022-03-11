@@ -1,6 +1,6 @@
 {
     "ID": "2f4e384e-76ce-45c3-aea2-b16f5e5c328f",
-    "ActionKeyword": "obs",
+    "ActionKeyword": "obp",
     "Name": "Obsidian Plugin Search",
     "Description": "Search for Obsidian Plugins and quickly paste links",
     "Author": "Johannes Theiner",

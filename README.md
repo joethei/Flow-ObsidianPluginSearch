@@ -13,7 +13,7 @@ when selecting.
 
 ![Demo](https://i.joethei.space/Flow.Launcher_lkLIIZmrGg.png)
 
-Trigger is `obs`
+Trigger is `obp`
 
 
 I personally use this when helping in the Obsidian Community Discord to quickly get links.
